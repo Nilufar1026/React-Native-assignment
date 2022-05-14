@@ -5,6 +5,7 @@ import BottomTabs from './navitators/BottomTabs';
 import LoginScreen from './screens/LoginScreen';
 import { NavigationContainer } from "@react-navigation/native";
 import ButtomTabs from './navitators/BottomTabs';
+import StackNavigator from './navitators/StackNavigator';
 
 export default function App() {
   const [isLogged,setIsLogged] =useState(true)

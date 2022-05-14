@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInputProps, TouchableOpacity, View } from 'react-native';
 import InputField from '../components/InputField';
-import StyledButton from '../components/Button';
-import { IInputField, INewProduct } from '../types/types';
+import StyledButton from "../components/Button";
+import { INewProduct } from '../types/types';
 
-const NewProductScreen: React.FC<INewProduct> = (props) => {
+const NewProductScreen:React.FC<INewProduct> = () => {
   const [nameText,setNameText]= useState("")
   const [priceText,setPriceText]= useState("")
   const [typeText,setTypeText]= useState("")

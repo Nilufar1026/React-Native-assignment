@@ -37,4 +37,10 @@ export interface IInputField {
   }
 
   export interface INewProduct {
+    // onOptionPress:boolean
+    // onProfilePress:any
+  }
+
+  export interface IOwnProduct{
+    navigation:any
   }

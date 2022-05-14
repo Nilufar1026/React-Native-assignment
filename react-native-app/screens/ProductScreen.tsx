@@ -3,10 +3,12 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import StyledButton from '../components/Button';
 import Products from '../components/Products';
+import { IOwnProduct, IProduct } from '../types/types';
+import NewProductScreen from './NewProductScreen';
 
-export default function ProductScreen() {
+const ProductScreen:React.FC<IOwnProduct>=(props)=> {
   const handleNewProduct= ()=>{
-    console.log("hej add")
+    props.navigation.navigate('NewProduct')
   }
   return (
     <View style={styles.productContainer}>
@@ -29,6 +31,7 @@ export default function ProductScreen() {
       alignItems={"flex-end"}
       fontSize={30}
       handleAdd={()=>handleNewProduct()}/>
+      {/* <NewProductScreen  /> */}
       <Products />
       {/* <View style={styles.separator} />
 
@@ -66,3 +69,4 @@ const styles = StyleSheet.create({
 
 
 });
+export default ProductScreen
