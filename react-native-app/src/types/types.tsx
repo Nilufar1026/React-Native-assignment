@@ -38,3 +38,7 @@ export interface IInputField {
 
   export interface INewProduct {
   }
+
+  export interface ILogin{
+    setIsAuth: (isAuth: boolean) => void;
+  }
