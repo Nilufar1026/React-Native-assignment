@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Products from './Products';
+import Products from '../components/Products';
 import { IButton } from '../types/types';
 
  const StyledButton: React.FC<IButton> = (props) =>{
@@ -16,12 +16,16 @@ import { IButton } from '../types/types';
 
 
 const styles = (props:IButton) => StyleSheet.create({
+    productContainer: {
+      flexDirection: 'column',
+      backgroundColor: '#f1f1f1',
+      flex: 1
+    },
     addWrapper: {
       alignItems: props.alignItems,
+      marginRight: 10
     },
     addButton: {
-      marginRight: 10,
-      borderWidth:3,
       width: props.width,
       backgroundColor: "#fff",
       borderRadius: props.borderRadius,
@@ -29,7 +33,6 @@ const styles = (props:IButton) => StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: props.marginTop,
-      
     },
     addText: {
       fontSize: props.fontSize
