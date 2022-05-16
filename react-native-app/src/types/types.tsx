@@ -1,17 +1,23 @@
 import { FlexAlignType, NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 export interface IProduct {
-    id: number,
-    name: string,
-    price: number,
-    type: string
+    id: number;
+    name: string;
+    price: number;
+    type: string;
+}
+
+export interface IProducts  {
+ products:IProduct[]
 }
 
 
 export interface IInputField {
     // label?: string;
     placeholder?: string;
-    inputOnChange:(t: string) => void
+    inputOnChange:(t: string) => void;
+    name:string;
+    
     
     // error?: boolean;
     // errorMessage?: React.ReactNode;
@@ -32,15 +38,22 @@ export interface IInputField {
     ButtonText:string  
     alignItems: FlexAlignType | undefined
     fontSize:number;
-    handleAdd:()=>void
+    handleAdd:()=>void;
     
   }
 
   export interface INewProduct {
     // onOptionPress:boolean
     // onProfilePress:any
+    onClose:()=>void;
+    addProduct:any;
+    showModal:boolean;
+    // setShowModal:any
   }
 
   export interface IOwnProduct{
-    navigation:any
+    // navigation:any;
+    // showModal:boolean
+    // onClose:()=>void;
+    // addProduct:any
   }

@@ -1,23 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
-import { IProduct } from '../types/types';
+import { IProduct, IProducts } from '../types/types';
 
-export default function Products() {
-    const products: IProduct[] = [
-        {
-            id: 1,
-            name: "citron",
-            price: 0.5,
-            type: "vegetable"
-        },
-        {
-            id: 2,
-            name: "peach",
-            price: 0.2,
-            type: "frut"
-        }
-    ]
+const  Products:React.FC<IProducts>=(props)=> {
+    // const products: IProduct[] = [
+    //     {
+    //         id: 1,
+    //         name: "citron",
+    //         price: 0.5,
+    //         type: "vegetable"
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "peach",
+    //         price: 0.2,
+    //         type: "frut"
+    //     }
+    // ]
 
     const renderProductItem = (product:IProduct) =>  (
         <View style={styles.itemWrapper}>
@@ -36,10 +36,10 @@ export default function Products() {
             {/* <Text style={styles.itemType}>Vegetable</Text>
             <Text style={styles.itemType}>Fruit</Text> */}
             <FlatList
-                data={products}
+                data={props.products}
                 // keyExtractor={(item) => item.id}
                 keyExtractor={keyExtractor}
-                renderItem={(item) =>renderProductItem(item.item)}
+                renderItem={(product:any) =>renderProductItem(product)}
             // renderItem={({ item }) => renderProductItem(item)}
             />
 
@@ -100,3 +100,5 @@ const styles = StyleSheet.create({
     },
     
 });
+
+export default Products

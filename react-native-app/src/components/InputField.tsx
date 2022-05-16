@@ -26,6 +26,7 @@ const InputField: React.FC<IInputField & TextInputProps> = (props) => {
             onChangeText={props.inputOnChange}
             {...props.keyboardType ? 'numric' : null}
             style={styles.input}
+            name={props.name}
             />
       </KeyboardAvoidingView>
         </View>

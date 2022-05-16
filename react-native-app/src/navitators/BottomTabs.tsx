@@ -6,10 +6,6 @@ import ProductScreen from '../screens/ProductScreen';
 import SettingScreen from '../screens/SettingScreen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
-import NewProductScreen from '../screens/NewProductScreen';
-import { Entypo } from '@expo/vector-icons'; 
-import StackNavigator from './StackNavigator';
-
 const Tab = createBottomTabNavigator();
 
 
@@ -29,7 +25,7 @@ const BottomTabs = () => {
                 
             }}
         >
-            <Tab.Screen name="ProductScreen" component={StackNavigator}
+            <Tab.Screen name="ProductScreen" component={ProductScreen}
         
                 options={{
 
