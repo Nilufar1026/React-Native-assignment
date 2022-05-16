@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View ,ImageBackground, Pressable,Modal} from 'react-native';
 import StyledButton from '../components/Button';
@@ -10,6 +10,16 @@ import SignUp from './SignUp';
 
 
  const LoginScreen:React.FC<ILogin> =(props)=> {
+
+if (auth.currentUser) {
+  props.setIsLogged(true)
+}else{
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      props.setIsLogged(true)   
+    }
+  });
+}
 
  const [userValues,setUserValues]= useState({
    email:"",
