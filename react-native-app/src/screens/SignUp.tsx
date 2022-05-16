@@ -1,23 +1,23 @@
+
 import { StatusBar } from 'expo-status-bar';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View ,ImageBackground, Pressable,Modal} from 'react-native';
+import { StyleSheet, Text, View ,ImageBackground, Pressable} from 'react-native';
 import StyledButton from '../components/Button';
 import InputField from '../components/InputField';
+import {createUserWithEmailAndPassword} from 'firebase/auth'
 import { auth } from '../firebase';
-import { ILogin } from '../types/types';
-import SignUp from './SignUp';
+import { useLinkProps } from '@react-navigation/native';
+import { ISignUp } from '../types/types';
 
 
- const LoginScreen:React.FC<ILogin> =(props)=> {
+ const SignUp:React.FC<ISignUp> =(props)=> {
 
  const [userValues,setUserValues]= useState({
    email:"",
    password:""
  })
- let [errorMessage,setErrorMessage]=useState("")
 
- const [showSignUpModal,setShowSignUpModal]=useState(false)
+
  const handleChange =(text:string,eventName:string) =>{
    setUserValues(prev=>{
      return{
@@ -26,36 +26,28 @@ import SignUp from './SignUp';
      }
    })
  }
-const handleLogin=()=>{
-  if(userValues.email !== "" && userValues.password !== ""){
-    signInWithEmailAndPassword(auth, userValues.email, userValues.password)
-    .then((userCredential) => {
-      // Signed in 
-      props.setIsLogged(true)
-      // ...
-    })
-    .catch((error) => {
-      setErrorMessage(errorMessage)
-    });
-    
-  }else{
-    setErrorMessage("Email or password is not correct")
-  }
 
-}
+        const signUp=()=>{
+            createUserWithEmailAndPassword(auth,userValues.email,userValues.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                props.onClose()
+                
+                // ...
+              })
+              .catch((error) => {
+                const errorMessage = error.message;
+                // ..
+              });
+
+        }
     
 const backgroundImage= require("../../assets/background.jpg")
   return ( 
   <ImageBackground style={styles.loginContainer} source={backgroundImage}>
-    <Modal visible={showSignUpModal} 
-        onRequestClose={()=>setShowSignUpModal(false)} 
-        transparent={false}
-        animationType="none">
-          <SignUp  onClose={()=>setShowSignUpModal(false)} />
-    </Modal>
     <View style={styles.loginBackground}>
-    <Text style={{fontSize:30}}>Login</Text>
-    <Text >{errorMessage}</Text>
+    <Text style={{fontSize:30}}>Sign up</Text>
     <InputField 
      placeholder="Email" 
      accessibilityLabel={'email'} 
@@ -65,25 +57,29 @@ const backgroundImage= require("../../assets/background.jpg")
      />
     <InputField 
      placeholder="Password" 
-     accessibilityLabel={'password'} 
+     accessibilityLabel={'Password'} 
      value={userValues.password} 
      inputOnChange={(t:string)=>handleChange(t,"password")} 
-     secureTextEntry={true}/>
-     <Text>Don´t have an account
-   <Pressable onPress={()=>setShowSignUpModal(true)} >
-    <Text style={{color:"blue"}}>Register now</Text>
+     secureTextEntry={true}
+     />
+    
+
+     <Text >Already have an account
+   <Pressable onPress={()=>props.onClose()} 
+   >
+    <Text style={{color:"blue"}}>Login</Text>
    </Pressable>
 
      </Text>
 <StyledButton height={50} 
         width={150} 
         borderRadius={20} 
-        ButtonText={"Sign In"} 
+        ButtonText={"Sign up"} 
         marginTop={15}
         alignItems={"center"}
         fontSize={15}
+        handleAdd={signUp}
         borderWidth={5}
-        handleAdd={handleLogin}
         />
     </View>
     
@@ -110,4 +106,4 @@ const styles = StyleSheet.create({
     padding:16
   }
 });
-export default LoginScreen
+export default SignUp

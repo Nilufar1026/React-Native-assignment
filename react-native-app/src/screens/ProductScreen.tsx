@@ -1,99 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, StyleSheet, View } from 'react-native';
 import StyledButton from '../components/Button';
 import Products from '../components/Products';
 import { IOwnProduct, IProduct } from '../types/types';
 import NewProductScreen from './NewProductScreen';
-import {db} from '../firebase'
-import { collection , addDoc, query, getDocs } from 'firebase/firestore';
+import { db } from '../firebase'
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 
-const ProductScreen:React.FC<IOwnProduct>=(props)=> {
+const ProductScreen: React.FC<IOwnProduct> = (props) => {
 
-  const [showModal,setShowModal ] =useState(false)
-  const [products,setProducts]=useState([])
-  const handleNewProduct= ()=>{
+  const [showModal, setShowModal] = useState(false)
+  const [products, setProducts] = useState([])
+  const handleNewProduct = () => {
     setShowModal(true)
   }
 
-  const addProduct =async (product:IProduct) => {
-    try{
-      let newProduct:IProduct= {
-        name:product.name,
-          price: product.price,
-          type:product.type,
-          id:""
+  const addProduct = async (product: IProduct) => {
+    try {
+      let newProduct: IProduct = {
+        name: product.name,
+        price: product.price,
+        type: product.type,
+        id: ""
       }
 
-      const docRef = await addDoc(collection(db,"product"),{newProduct})
-      newProduct.id= docRef.id
-      let updatedProduct:any= [...products]
+      const docRef = await addDoc(collection(db, "product"), { newProduct })
+      newProduct.id = docRef.id
+      let updatedProduct: any = [...products]
       updatedProduct.push(newProduct)
       setProducts(updatedProduct)
-    }catch(error){
-      console.log(error);  
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  const getProducts =async () => {
-    try{
-
+  const getProducts = async () => {
+    try {
       const querySnapshot = await getDocs(collection(db, "product"));
-      let products:any=[]
-querySnapshot.forEach((doc) => {
-  let product = doc.data()
-  product.id=doc.id
-  products.push(product)
-  // console.log(products);
-  
-});
-      console.log(products)
+      let products: any = []
+      querySnapshot.forEach((doc) => {
+        let product = doc.data()
+        product.id = doc.id
+        products.push(product)
+      });
       setProducts(products)
-    }catch(error){
-      console.log(error);  
+    } catch (error) {
+      console.log(error);
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getProducts()
-  },[])
-
-  // const onClose = () =>{
-  //   setShowModal(false)
-  //   console.log("closed")
-  // }
+  }, [])
+ 
   return (
     <View style={styles.productContainer}>
-
-      {/* <View style={styles.itemContainer}> */}
-      {/* <Button onPress={() => alert('This is a button!')}
-          title="Create new product"
-        color="red" /> */}
-      {/* <TouchableOpacity style={styles.addWrapper}>
-        <View style={styles.addButton}>
-          <Text style={styles.addText}>+</Text>
-          </View>
-        </TouchableOpacity> */}
-      <StyledButton 
-      height={50} 
-      width={50} 
-      borderRadius={50} 
-      ButtonText={"+"} 
-      marginTop={15}
-      alignItems={"flex-end"}
-      fontSize={30}
-      handleAdd={()=>handleNewProduct()}/>
-        <Modal visible={showModal} 
-        onRequestClose={()=>setShowModal(false)} 
+      <StyledButton
+        height={50}
+        width={50}
+        borderRadius={50}
+        ButtonText={"+"}
+        marginTop={15}
+        alignItems={"flex-end"}
+        fontSize={30}
+        borderWidth={0}
+        handleAdd={() => handleNewProduct()} />
+      <Modal visible={showModal}
+        onRequestClose={() => setShowModal(false)}
         transparent={false}
         animationType="none">
-          <NewProductScreen  onClose={()=>setShowModal(false)} addProduct={addProduct} showModal={showModal}/>
-        </Modal>
-      {/* <NewProductScreen  /> */}
-      <Products products={products} setProducts={(p:any)=>setProducts(p)}/>
-      {/* <View style={styles.separator} />
-
-      </View> */}
+        <NewProductScreen onClose={() => setShowModal(false)} addProduct={addProduct} showModal={showModal} />
+      </Modal>
+      <Products products={products} setProducts={(p: any) => setProducts(p)} />
     </View>
   )
 

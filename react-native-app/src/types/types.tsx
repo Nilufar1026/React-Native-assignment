@@ -17,8 +17,7 @@ export interface IInputField {
     // label?: string;
     placeholder?: string;
     inputOnChange:(t: string) => void;
-    name:string;
-    
+    secureTextEntry:any
     
     // error?: boolean;
     // errorMessage?: React.ReactNode;
@@ -40,6 +39,7 @@ export interface IInputField {
     alignItems: FlexAlignType | undefined
     fontSize:number;
     handleAdd:()=>void;
+    borderWidth:number
     
   }
 
@@ -57,4 +57,12 @@ export interface IInputField {
     // showModal:boolean
     // onClose:()=>void;
     // addProduct:any
+  }
+
+  export interface ILogin{
+    setIsLogged:(b:boolean)=>void
+  }
+
+  export interface ISignUp {
+    onClose:()=>void;
   }

@@ -12,28 +12,14 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
   const [priceText,setPriceText]= useState("")
   const [typeText,setTypeText]= useState("")
 
-
-  // const handleChange = (e:any) => {
-  //   const { name, value } = e.target;
-  //   setProduct(prevState => ({
-  //               ...prevState,
-  //               [name]: value
-  //           }));
-  // }
   let product = {
     name:nameText,
     price:priceText,
     type:typeText
   }
-  const handleAddProduct=()=>{
-    console.log("adde?");
-    props.onClose()
-    // props.setShowModal(false)
-    
-    // props.addProduct(product)
-  }
+ 
+
   return (
-    // {props.showModal && (
 
       <View style={styles.newProductContainer}>
           <InputField  
@@ -41,20 +27,22 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
           accessibilityLabel={'name'} 
           value={nameText} 
           inputOnChange={setNameText} 
-          name="nameText"/>
+          secureTextEntry={false}
+          />
           <InputField  
           placeholder="Price" 
           accessibilityLabel={'Price'} 
           value={priceText} 
           inputOnChange={setPriceText}
-          name="priceText"
+          secureTextEntry={false}
           />
           <InputField  
           placeholder="Write type of your product" 
           accessibilityLabel={'type'} 
           value={typeText} 
           inputOnChange={setTypeText}
-          name="typeText"/>
+          secureTextEntry={false}
+         />
           {/* <StyledButton 
           height={50} 
           width={150} 
@@ -67,11 +55,7 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
             props.onClose()
           }}/> */}
           <Button title='ok' onPress={()=>{
-            // console.log("hello")
             props.addProduct(product);
-            // setNameText("");
-            // setPriceText(""),
-            // setTypeText("");
             props.onClose();
           }}/>
       </View>

@@ -3,6 +3,8 @@ import { StyleSheet,  View } from 'react-native';
 import ProductScreen from '../screens/ProductScreen';
 import NewProductScreen from '../screens/NewProductScreen';
 import { createStackNavigator, Header } from '@react-navigation/stack';
+import LoginScreen from '../screens/LoginScreen';
+import SignUp from '../screens/SignUp';
 
 
 const Stack = createStackNavigator();
@@ -11,12 +13,13 @@ const StackNavigator = () => {
 //         <View style={styles.StackContainer}>
 //             <Stack.Navigator 
 //            screenOptions={{
-//             headerShown: true,
-//             headerStyle: { backgroundColor: '#F4C3C3', height: 80 },
+//             headerShown: false,
+           
 //           }}
 // >
-//                 <Stack.Screen name="Product" component={ProductScreen} />
-//                 <Stack.Screen name="NewProduct" component={NewProductScreen} />
+//                 <Stack.Screen name="Login" component={LoginScreen} />
+//                 <Stack.Screen name="SignUp" component={SignUp} />
+//                 {/* <Stack.Screen name="Product" component={ProductScreen} /> */}
 //             </Stack.Navigator>
 //         </View>
 //     )

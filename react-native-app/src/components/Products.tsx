@@ -28,7 +28,7 @@ const Products: React.FC<IProducts> = (props) => {
 
         props.setProducts(updatedproducts)
     }
-
+    console.log("product",props.products)
     const renderProductItem = (product: IProduct) => (
         <View style={styles.itemWrapper}>
             <View style={{flexDirection:"row",justifyContent:"space-around",flex:1}}>

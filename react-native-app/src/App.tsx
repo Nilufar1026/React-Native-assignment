@@ -11,14 +11,17 @@ import { initializeApp } from 'firebase/app';
 
 initializeApp(firebaseConfig)
 export default function App() {
-  const [isLogged,setIsLogged] =useState(true)
+  const [isLogged,setIsLogged] =useState(false)
   return isLogged ? (
       <NavigationContainer>
         <BottomTabs />
       </NavigationContainer>
     )
       : (
-        <LoginScreen />
+      //   <NavigationContainer>
+      //   <StackNavigator setIsLogged={setIsLogged}/>
+      // </NavigationContainer>
+        <LoginScreen setIsLogged={(b)=>setIsLogged(b)}/>
       )
 }
 

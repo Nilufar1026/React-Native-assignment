@@ -23,7 +23,9 @@ const styles = (props:IButton) => StyleSheet.create({
     },
     addWrapper: {
       alignItems: props.alignItems,
-      marginRight: 10
+      marginRight: 10,
+      
+      
     },
     addButton: {
       width: props.width,
@@ -33,9 +35,12 @@ const styles = (props:IButton) => StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: props.marginTop,
+      borderWidth:props.borderWidth,
+    
     },
     addText: {
-      fontSize: props.fontSize
+      fontSize: props.fontSize,
+      fontWeight:'bold'
     }
   });
 
