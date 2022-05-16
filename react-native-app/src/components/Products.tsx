@@ -2,8 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { IProduct, IProducts } from '../types/types';
+import { AntDesign } from '@expo/vector-icons'; 
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const  Products:React.FC<IProducts>=(props)=> {
+const Products: React.FC<IProducts> = (props) => {
     // const products: IProduct[] = [
     //     {
     //         id: 1,
@@ -18,18 +21,33 @@ const  Products:React.FC<IProducts>=(props)=> {
     //         type: "frut"
     //     }
     // ]
+    const deleteProduct= async(productId:string)=>{
 
-    const renderProductItem = (product:IProduct) =>  (
+        await deleteDoc(doc(db, "product", productId));
+        let updatedproducts = [...props.products.filter((item)=>item.id!=productId)]
+
+        props.setProducts(updatedproducts)
+    }
+
+    const renderProductItem = (product: IProduct) => (
         <View style={styles.itemWrapper}>
-                
-            <View style={styles.itemContainer}>
-                <Text style={styles.itemName}>{product.name}</Text>
-                <Text style={styles.itemPrice}>{product.price} KR</Text>
+            <View style={{flexDirection:"row",justifyContent:"space-around",flex:1}}>
+                <View style={styles.itemContainer} >
+                    <Text style={styles.itemName}>{product.name}</Text>
+                    <Text style={styles.itemPrice}>Price: {product.price} KR</Text>
+                </View>
+                <AntDesign 
+                name="delete" 
+                size={30} 
+                color="red" 
+                style={{alignSelf:"center",marginLeft: "auto"}} 
+                onPress={()=>deleteProduct(product.id)}/>
+
             </View>
-             <View style={styles.separator} />
-             </View>
-        )
-        const keyExtractor = useCallback((item, index) => `${item.id}${index}`, []);
+            <View style={styles.separator} />
+        </View>
+    )
+    const keyExtractor = useCallback((item, index) => `${item.id}${index}`, []);
 
     return (
         <View>
@@ -39,7 +57,7 @@ const  Products:React.FC<IProducts>=(props)=> {
                 data={props.products}
                 // keyExtractor={(item) => item.id}
                 keyExtractor={keyExtractor}
-                renderItem={(product:any) =>renderProductItem(product)}
+                renderItem={(item) => renderProductItem(item.item)}
             // renderItem={({ item }) => renderProductItem(item)}
             />
 
@@ -66,39 +84,39 @@ const styles = StyleSheet.create({
     },
 
     itemWrapper: {
-        backgroundColor:"#fff",
-        padding:15,
-        borderRadius:10,
+        backgroundColor: "#fff",
+        padding: 15,
+        borderRadius: 10,
         // height: 70,
         // boxShadow: "0 0 5px rgba(0, 0, 0, 5)",
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "row",
-        margin:20
+        margin: 20
         // padding: 1,
         // display: "flex",
         // width:"80%"
     },
-    
+
     itemContainer: {
         // flexDirection:'row',
         // alignItems:'center',
-        flexWrap:'wrap',
-        textAlign:'left'
+        flexWrap: 'wrap',
+        textAlign: 'left'
         // flex: 1,
         // height: 70,
         // boxShadow: "0 0 5px rgba(0, 0, 0, 0.25)"
     },
-    itemName :{
-        fontSize:30
+    itemName: {
+        fontSize: 30
     },
-    itemPrice:{},
-    itemType:{},
+    itemPrice: {},
+    itemType: {},
     separator: {
         height: 5,
         color: "#fff"
     },
-    
+
 });
 
 export default Products

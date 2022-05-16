@@ -17,20 +17,24 @@ const ProductScreen:React.FC<IOwnProduct>=(props)=> {
   }
 
   const addProduct =async (product:IProduct) => {
-    console.log("added?",product)
     try{
-
-      const docRef = await addDoc(collection(db,"product"),{
+      let newProduct:IProduct= {
         name:product.name,
-        price: product.price,
-        type:product.type
-      })
-      console.log(docRef)
-      
+          price: product.price,
+          type:product.type,
+          id:""
+      }
+
+      const docRef = await addDoc(collection(db,"product"),{newProduct})
+      newProduct.id= docRef.id
+      let updatedProduct:any= [...products]
+      updatedProduct.push(newProduct)
+      setProducts(updatedProduct)
     }catch(error){
       console.log(error);  
     }
   }
+
   const getProducts =async () => {
     try{
 
@@ -86,7 +90,7 @@ querySnapshot.forEach((doc) => {
           <NewProductScreen  onClose={()=>setShowModal(false)} addProduct={addProduct} showModal={showModal}/>
         </Modal>
       {/* <NewProductScreen  /> */}
-      <Products products={products}/>
+      <Products products={products} setProducts={(p:any)=>setProducts(p)}/>
       {/* <View style={styles.separator} />
 
       </View> */}

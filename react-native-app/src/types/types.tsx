@@ -1,7 +1,7 @@
 import { FlexAlignType, NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 export interface IProduct {
-    id: number;
+    id: string;
     name: string;
     price: number;
     type: string;
@@ -9,6 +9,7 @@ export interface IProduct {
 
 export interface IProducts  {
  products:IProduct[]
+ setProducts:(p:any)=>void
 }
 
 
