@@ -23,7 +23,7 @@ const SettingScreen:React.FC<IBottomTab>=(props)=> {
        marginTop={15}
        alignItems={"center"}
        fontSize={15}
-       borderWidth={5}
+       borderWidth={2}
        handleAdd={logOut} />
     </View>
     )

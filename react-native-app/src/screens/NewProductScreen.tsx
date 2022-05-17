@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import StyledButton from '../components/Button';
 import InputField from '../components/InputField';
 import { INewProduct } from '../types/types';
@@ -8,16 +9,22 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
   
   const [nameText,setNameText]= useState("")
   const [priceText,setPriceText]= useState("")
-  const [typeText,setTypeText]= useState("")
+  const [typeText,setTypeText] = useState([
+    {label: 'Fruit', value: 'Fruit'},
+    {label: 'Vegetable', value: 'Vegetable'}
+  ]);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  // const [typeText,setTypeText]= useState("")
 
   let product = {
     name:nameText,
     price:priceText,
-    type:typeText,
+    type:value,
     id:""
   }
  const handleAddProduct=()=>{
-   if (nameText!=="" && priceText!=="" && typeText!=="") {
+   if (nameText!=="" && priceText!=="" ) {
      props.addProduct(product);
      props.onClose()
    }
@@ -40,13 +47,24 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
           inputOnChange={setPriceText}
           secureTextEntry={false}
           />
-          <InputField  
-          placeholder="Write type of your product" 
-          accessibilityLabel={'type'} 
-          value={typeText} 
-          inputOnChange={setTypeText}
-          secureTextEntry={false}
-         />
+         <DropDownPicker
+      open={open}
+      value={value}
+      items={typeText}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setTypeText}
+      style={{
+        width:350,
+       borderRadius:60,
+       paddingHorizontal:15,
+       paddingVertical:15,
+       backgroundColor:'#fff',
+       borderColor:'#c0c0c0',
+       borderWidth:2,
+       margin:15
+      }}
+    />
          <View style={{flexDirection:'row',justifyContent:"center"}}>
 
         <StyledButton height={50} 
@@ -56,7 +74,7 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
         marginTop={15}
         alignItems={"center"}
         fontSize={15}
-        borderWidth={5}
+        borderWidth={2}
         handleAdd={handleAddProduct}
         />
         <StyledButton height={50} 
@@ -66,7 +84,7 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
         marginTop={15}
         alignItems={"center"}
         fontSize={15}
-        borderWidth={5}
+        borderWidth={2}
         handleAdd={()=>props.onClose()}
         />
          </View>
@@ -77,7 +95,9 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
 const styles = StyleSheet.create({
   newProductContainer: {
     flex: 1,   
-    marginTop:50  
+    marginTop:50  ,
+    // justifyContent:"center",
+    // alignItems:"center",
   },
 });
 
