@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Modal, StyleSheet, View } from 'react-native';
+import { Modal, StyleSheet, View, Text } from 'react-native';
 import StyledButton from '../components/Button';
 import Products from '../components/Products';
 import { IOwnProduct, IProduct } from '../types/types';
@@ -25,14 +25,14 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
         id: ""
       }
 
-      const docRef = await addDoc(collection(db, "product"), { 
+      const docRef = await addDoc(collection(db, "product"), {
         name: product.name,
         price: product.price,
         type: product.type,
-        })
+      })
       newProduct.id = docRef.id
       let updatedProduct: any = [...products]
-      
+
       updatedProduct.push(newProduct)
       setProducts(updatedProduct)
     } catch (error) {
@@ -58,7 +58,7 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
   useEffect(() => {
     getProducts()
   }, [])
- 
+
   return (
     <View style={styles.productContainer}>
       <StyledButton
@@ -77,7 +77,10 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
         animationType="none">
         <NewProductScreen onClose={() => setShowModal(false)} addProduct={addProduct} showModal={showModal} />
       </Modal>
-      <Products products={products} setProducts={(p: any) => setProducts(p)} />
+      {products.length ? (
+        <Products products={products} setProducts={(p: any) => setProducts(p)} />
+      ) : (<Text style={{ fontSize: 30, textAlign: "center", marginTop: 130 }}>You do not have any product.</Text>)
+      }
     </View>
   )
 
