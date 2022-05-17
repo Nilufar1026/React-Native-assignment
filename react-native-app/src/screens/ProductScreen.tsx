@@ -25,14 +25,18 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
         id: ""
       }
 
-      const docRef = await addDoc(collection(db, "product"), { newProduct })
+      const docRef = await addDoc(collection(db, "product"), { 
+        name: product.name,
+        price: product.price,
+        type: product.type,
+        })
       newProduct.id = docRef.id
       console.log("newProduct",newProduct)
       console.log(newProduct.id)
-      let updatedProduct: any = [...products,newProduct]
-      console.log("updatedProduct",updatedProduct);
+      let updatedProduct: any = [...products]
+      // console.log("updatedProduct",updatedProduct);
       
-      // updatedProduct.push(newProduct)
+      updatedProduct.push(newProduct)
       setProducts(updatedProduct)
     } catch (error) {
       console.log(error);
@@ -65,7 +69,7 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
         width={50}
         borderRadius={50}
         ButtonText={"+"}
-        marginTop={15}
+        marginTop={45}
         alignItems={"flex-end"}
         fontSize={30}
         borderWidth={0}
