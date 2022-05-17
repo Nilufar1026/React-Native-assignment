@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import StyledButton from '../components/Button';
 import { auth } from '../firebase';
+import { IBottomTab } from '../navitators/BottomTabs';
 
-export default function SettingScreen() {
+
+const SettingScreen:React.FC<IBottomTab>=(props)=> {
   const logOut=()=>{
     signOut(auth).then(()=>{
-      
+      props.setIsLogged(false)
     }).catch((error)=>{
       console.log(error)
     })
@@ -41,3 +43,5 @@ const styles = StyleSheet.create({
     
   },
 });
+
+export default SettingScreen

@@ -14,9 +14,10 @@ export default function App() {
   const [isLogged,setIsLogged] =useState(false)
   return isLogged ? (
       <NavigationContainer>
-        <BottomTabs />
+        <BottomTabs setIsLogged={setIsLogged}/>
       </NavigationContainer>
     )
+    // 
       : (
       //   <NavigationContainer>
       //   <StackNavigator setIsLogged={setIsLogged}/>

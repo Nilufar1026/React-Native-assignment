@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProductScreen from '../screens/ProductScreen';
@@ -8,9 +8,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
 const Tab = createBottomTabNavigator();
 
+export interface IBottomTab {
+    setIsLogged:any
+}
 
-
-const BottomTabs = () => {
+const BottomTabs:React.FC<IBottomTab> = ({setIsLogged}:IBottomTab) => {
     return (
         <Tab.Navigator
             initialRouteName="Product"
@@ -37,7 +39,7 @@ const BottomTabs = () => {
                 }} 
                 
                 />
-            <Tab.Screen name="Setting" component={SettingScreen} 
+            <Tab.Screen name="Setting" children={() =><SettingScreen setIsLogged={setIsLogged} />}
             options={{
 
                 tabBarIcon: ({ color }) => (
@@ -45,6 +47,8 @@ const BottomTabs = () => {
                 ),
             }}
             />
+                {/* {()=> <SettingScreen setIsLogged={setIsLogged}/>} */}
+            {/* </Tab.Screen> */}
         </Tab.Navigator>
     )
 }
