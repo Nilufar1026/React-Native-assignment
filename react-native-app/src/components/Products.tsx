@@ -29,7 +29,9 @@ const Products: React.FC<IProducts> = (props) => {
         props.setProducts(updatedproducts)
     }
     console.log("product",props.products)
-    const renderProductItem = (product: IProduct) => (
+
+    const renderProductItem = (product:IProduct) => {
+        return (
         <View style={styles.itemWrapper}>
             <View style={{flexDirection:"row",justifyContent:"space-around",flex:1}}>
                 <View style={styles.itemContainer} >
@@ -46,7 +48,9 @@ const Products: React.FC<IProducts> = (props) => {
             </View>
             <View style={styles.separator} />
         </View>
-    )
+
+        )}
+    
     const keyExtractor = useCallback((item, index) => `${item.id}${index}`, []);
 
     return (
@@ -57,7 +61,7 @@ const Products: React.FC<IProducts> = (props) => {
                 data={props.products}
                 // keyExtractor={(item) => item.id}
                 keyExtractor={keyExtractor}
-                renderItem={(item) => renderProductItem(item.item)}
+                renderItem={(item)=>renderProductItem(item.item)}
             // renderItem={({ item }) => renderProductItem(item)}
             />
 

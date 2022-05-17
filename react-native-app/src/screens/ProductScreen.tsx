@@ -27,8 +27,12 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
 
       const docRef = await addDoc(collection(db, "product"), { newProduct })
       newProduct.id = docRef.id
-      let updatedProduct: any = [...products]
-      updatedProduct.push(newProduct)
+      console.log("newProduct",newProduct)
+      console.log(newProduct.id)
+      let updatedProduct: any = [...products,newProduct]
+      console.log("updatedProduct",updatedProduct);
+      
+      // updatedProduct.push(newProduct)
       setProducts(updatedProduct)
     } catch (error) {
       console.log(error);
