@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import { signOut } from 'firebase/auth';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {  View } from 'react-native';
 import StyledButton from '../components/Button';
 import { auth } from '../firebase';
-import { IBottomTab } from '../navitators/BottomTabs';
+import { IBottomTab } from '../types/types';
 
 
 const SettingScreen:React.FC<IBottomTab>=(props)=> {
@@ -16,7 +14,7 @@ const SettingScreen:React.FC<IBottomTab>=(props)=> {
     })
   }
   return (
-    <View>
+    <View style={{flex:1,justifyContent:"center"}}>
       <StyledButton
        height={50} 
        width={150} 
@@ -28,20 +26,8 @@ const SettingScreen:React.FC<IBottomTab>=(props)=> {
        borderWidth={5}
        handleAdd={logOut} />
     </View>
-
     )
-    
-    
-    
-  ;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    
-  },
-});
 
 export default SettingScreen

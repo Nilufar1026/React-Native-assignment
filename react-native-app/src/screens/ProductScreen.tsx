@@ -31,10 +31,7 @@ const ProductScreen: React.FC<IOwnProduct> = (props) => {
         type: product.type,
         })
       newProduct.id = docRef.id
-      console.log("newProduct",newProduct)
-      console.log(newProduct.id)
       let updatedProduct: any = [...products]
-      // console.log("updatedProduct",updatedProduct);
       
       updatedProduct.push(newProduct)
       setProducts(updatedProduct)

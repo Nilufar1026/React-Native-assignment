@@ -1,17 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { Component, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
+import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ProductScreen from '../screens/ProductScreen';
 import SettingScreen from '../screens/SettingScreen';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons'; 
+import { IBottomTab } from '../types/types';
+
 const Tab = createBottomTabNavigator();
-
-export interface IBottomTab {
-    setIsLogged:any
-}
-
 const BottomTabs:React.FC<IBottomTab> = ({setIsLogged}:IBottomTab) => {
     return (
         <Tab.Navigator
@@ -35,7 +31,6 @@ const BottomTabs:React.FC<IBottomTab> = ({setIsLogged}:IBottomTab) => {
                         <MaterialCommunityIcons name="fruit-cherries" size={24} color="black" />
                     ),
                     title:"Product",
-                    header: () => null,
                 }} 
                 
                 />
@@ -47,18 +42,8 @@ const BottomTabs:React.FC<IBottomTab> = ({setIsLogged}:IBottomTab) => {
                 ),
             }}
             />
-                {/* {()=> <SettingScreen setIsLogged={setIsLogged}/>} */}
-            {/* </Tab.Screen> */}
         </Tab.Navigator>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-
-    },
-});
 
 export default BottomTabs

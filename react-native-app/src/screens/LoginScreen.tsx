@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { StyleSheet, Text, View ,ImageBackground, Pressable,Modal} from 'react-native';
 import StyledButton from '../components/Button';
 import InputField from '../components/InputField';
@@ -40,9 +39,7 @@ const handleLogin=()=>{
   if(userValues.email !== "" && userValues.password !== ""){
     signInWithEmailAndPassword(auth, userValues.email, userValues.password)
     .then((userCredential) => {
-      // Signed in 
       props.setIsLogged(true)
-      // ...
     })
     .catch((error) => {
       setErrorMessage(errorMessage)
@@ -96,8 +93,6 @@ const backgroundImage= require("../../assets/background.jpg")
         handleAdd={handleLogin}
         />
     </View>
-    
-    
     </ImageBackground>
   )
 
@@ -116,8 +111,9 @@ const styles = StyleSheet.create({
     backgroundColor:"#fff",
     justifyContent:"center",
     alignItems:"center",
-    alignSelf:'stretch',
-    padding:16
+    padding:16,
+    width:380,
+    borderRadius:30
   }
 });
 export default LoginScreen

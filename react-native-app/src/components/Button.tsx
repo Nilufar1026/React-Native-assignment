@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Products from '../components/Products';
+
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IButton } from '../types/types';
 
  const StyledButton: React.FC<IButton> = (props) =>{

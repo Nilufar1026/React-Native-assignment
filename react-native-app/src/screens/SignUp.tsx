@@ -1,12 +1,10 @@
 
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { StyleSheet, Text, View ,ImageBackground, Pressable} from 'react-native';
 import StyledButton from '../components/Button';
 import InputField from '../components/InputField';
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import { auth } from '../firebase';
-import { useLinkProps } from '@react-navigation/native';
 import { ISignUp } from '../types/types';
 
 
@@ -30,15 +28,11 @@ import { ISignUp } from '../types/types';
         const signUp=()=>{
             createUserWithEmailAndPassword(auth,userValues.email,userValues.password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
                 props.onClose()
-                
-                // ...
               })
               .catch((error) => {
                 const errorMessage = error.message;
-                // ..
               });
 
         }

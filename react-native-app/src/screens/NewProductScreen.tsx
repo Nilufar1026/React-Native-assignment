@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, TextInputProps, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
+import StyledButton from '../components/Button';
 import InputField from '../components/InputField';
-import StyledButton from "../components/Button";
 import { INewProduct } from '../types/types';
-import { useLinkProps } from '@react-navigation/native';
 
 const NewProductScreen:React.FC<INewProduct> = (props) => {
   
@@ -15,9 +13,15 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
   let product = {
     name:nameText,
     price:priceText,
-    type:typeText
+    type:typeText,
+    id:""
   }
- 
+ const handleAddProduct=()=>{
+   if (nameText!=="" && priceText!=="" && typeText!=="") {
+     props.addProduct(product);
+     props.onClose()
+   }
+ }
 
   return (
 
@@ -43,39 +47,37 @@ const NewProductScreen:React.FC<INewProduct> = (props) => {
           inputOnChange={setTypeText}
           secureTextEntry={false}
          />
-          {/* <StyledButton 
-          height={50} 
-          width={150} 
-          borderRadius={20} 
-          ButtonText={"Add Product"} 
-          marginTop={15}
-          alignItems={"center"}
-          fontSize={15}
-          handleAdd={()=>{
-            props.onClose()
-          }}/> */}
-          <Button title='ok' onPress={()=>{
-            props.addProduct(product);
-            props.onClose();
-          }}/>
+         <View style={{flexDirection:'row',justifyContent:"center"}}>
+
+        <StyledButton height={50} 
+        width={150} 
+        borderRadius={20} 
+        ButtonText={"Add product"} 
+        marginTop={15}
+        alignItems={"center"}
+        fontSize={15}
+        borderWidth={5}
+        handleAdd={handleAddProduct}
+        />
+        <StyledButton height={50} 
+        width={150} 
+        borderRadius={20} 
+        ButtonText={"Cancel"} 
+        marginTop={15}
+        alignItems={"center"}
+        fontSize={15}
+        borderWidth={5}
+        handleAdd={()=>props.onClose()}
+        />
+         </View>
       </View>
-    // )
-    
-
-    // }
-
     )
-    
-    
-    
-  ;
 }
 
 const styles = StyleSheet.create({
   newProductContainer: {
-    flex: 1,
-    
-    
+    flex: 1,   
+    marginTop:50  
   },
 });
 
